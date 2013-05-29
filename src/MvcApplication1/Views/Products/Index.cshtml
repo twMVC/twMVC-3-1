@@ -1,0 +1,95 @@
+﻿@model IEnumerable<MvcApplication1.Models.Products>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{Html.RenderPartial("Search", ViewBag.SearchModel as MvcApplication1.Models.SearchModel);} 
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            ProductName
+        </th>
+        <th>
+            Suppliers
+        </th>
+        <th>
+            Categories
+        </th>
+        <th>
+            QuantityPerUnit
+        </th>
+        <th>
+            UnitPrice
+        </th>
+        <th>
+            Discontinued
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Suppliers.CompanyName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categories.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuantityPerUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UnitPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Discontinued)
+        </td>
+        <td>
+        
+         @{ViewContext.RouteData.Values["id"] = item.ProductID;}
+         @Html.ActionLink("Edit", "Edit", ViewContext.RouteData.Values)
+
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.ProductID })*@
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+@{var pager = ViewBag.Pager as MvcApplication1.Models.PagerModel;}
+@Html.Pager(pager.PageSize, pager.CurrentPage, pager.TotalItemCount).Options(a =>
+{
+    ViewContext.RouteData.Values.Remove("page");
+    ViewContext.RouteData.Values.Remove("id");
+    a.RouteValues(ViewContext.RouteData.Values);
+})
+</div>
+
+
+@*<div class="pager">
+@{var pager = ViewBag.Pager as MvcApplication1.Models.PagerModel;}
+@Html.Pager(pager.PageSize, pager.CurrentPage, pager.TotalItemCount).Options(a =>
+{
+    ViewContext.RouteData.Values.Remove("id");
+})
+</div>
+*@
+
+
+@*<div class="pager">
+@{var pager = ViewBag.Pager as MvcApplication1.Models.PagerModel;}
+@Html.Pager(pager.PageSize, pager.CurrentPage, pager.TotalItemCount)
+</div>
+*@

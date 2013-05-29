@@ -1,0 +1,29 @@
+﻿@model MvcApplication1.Models.SearchModel
+
+
+@using (Html.BeginForm("Index","Products", FormMethod.Get)) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>SearchModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ProductName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ProductName)
+            @Html.ValidationMessageFor(model => model.ProductName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CategoryName)
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+
+        <p>
+            <input type="submit" value="Search" />
+        </p>
+    </fieldset>
+}
